@@ -1,0 +1,518 @@
+<html lang="ko"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Adler Books: Designing Humanity in the Age of AI.">
+    <title>Adler Books | Humanity Architecture</title>
+    <style>
+        /* [Global Reset & Variables] */
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #e0e0e0;
+            --accent-color: #ff3333; /* Adler Red */
+            --code-font: 'Courier New', Courier, monospace;
+            --human-font: 'Noto Serif KR', 'Times New Roman', serif;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--code-font);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* [Utility Classes] */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .serif { font-family: var(--human-font); }
+        .red { color: var(--accent-color); }
+        .fade-in { opacity: 0; animation: fadeIn 2s forwards; }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* [The Checkbox Hack: Pure CSS Language Switch] */
+        /* 1. 실제 체크박스는 숨김 */
+        #lang-toggle { display: none; }
+
+        /* 2. 기본 상태: 한국어 보임, 영어 숨김 */
+        .content-ko { display: block; }
+        .content-en { display: none; }
+
+        /* 3. 체크된 상태 (~ 형제 선택자 사용): 한국어 숨김, 영어 보임 */
+        #lang-toggle:checked ~ .content-ko { display: none; }
+        #lang-toggle:checked ~ .content-en { display: block; animation: fadeIn 0.5s; }
+
+        /* [Section Styles] */
+        .hero {
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 300;
+            line-height: 1.4;
+            letter-spacing: -1px;
+        }
+        .blinking-cursor::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .manifesto {
+            padding: 80px 0;
+            border-top: 1px solid #333;
+        }
+        .manifesto p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #888;
+        }
+        .manifesto strong {
+            color: #fff;
+            font-weight: normal;
+            border-bottom: 1px solid var(--accent-color);
+        }
+
+        .project-section {
+            padding: 100px 0;
+            position: relative;
+        }
+        .project-header {
+            margin-bottom: 50px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 20px;
+        }
+        .project-label {
+            font-size: 0.8rem;
+            color: #555;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .project-title {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            color: #fff;
+            margin: 0;
+        }
+        .project-desc {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 10px;
+            max-width: 600px;
+        }
+
+        .book-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        .book-item {
+            border-bottom: 1px solid #333;
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            transition: 0.3s;
+        }
+        .book-item:hover {
+            border-bottom: 1px solid var(--accent-color);
+            padding-left: 10px;
+        }
+        .book-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .vol-tag {
+            font-size: 0.75rem;
+            color: var(--accent-color);
+            font-family: var(--code-font);
+        }
+        .book-name { 
+            font-size: 1.4rem; 
+            font-weight: 500;
+        }
+        .book-sub {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.6rem; }
+            .book-name { font-size: 1.2rem; }
+            .book-item { flex-direction: column; gap: 10px; }
+        }
+
+        .stream-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.04;
+            pointer-events: none;
+            overflow: hidden;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            color: var(--accent-color);
+            white-space: pre-wrap;
+            word-break: break-all;
+            font-family: 'Courier New', monospace;
+        }
+
+        .system-divider {
+            text-align: center;
+            color: #333;
+            font-size: 0.8rem;
+            margin: 0;
+            padding: 20px 0;
+            letter-spacing: 3px;
+            border-top: 1px dashed #222;
+            border-bottom: 1px dashed #222;
+        }
+
+        .footer {
+            padding: 100px 20px 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 30px;
+            border-top: 1px solid #333;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .contact-link {
+            font-size: 1.2rem;
+            border: 1px solid #333;
+            padding: 15px 30px;
+        }
+        .contact-link:hover {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            font-weight: bold;
+        }
+        
+        .business-info {
+            font-size: 0.7rem;
+            color: #555;
+            line-height: 1.6;
+            font-family: var(--code-font);
+            margin-top: 10px;
+        }
+        .business-info span {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .copyright {
+            margin-top: 15px;
+            color: #333;
+            font-size: 0.65rem;
+        }
+
+        /* Language Toggle Button (Styled as label) */
+        .lang-switch-btn {
+            font-size: 0.8rem;
+            color: #888;
+            border: 1px solid #333;
+            padding: 5px 15px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .lang-switch-btn:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- [HIDDEN TRIGGER] This checkbox controls the language state -->
+    <input type="checkbox" id="lang-toggle">
+
+    <!-- Background Stream -->
+    <div class="stream-bg">
+        SYSTEM_BOOT... NODE_CHECK...
+        V01_MIRROR_OF_AUTHENTICITY... V05_HUMAN_SEMANTICS...
+        V11_FROM_PART_TO_ARCHITECT... V33_SOCRATES_AI...
+        V50_MEMENTO_MORI... V99_THE_BOLD_SURRENDER...
+        V100_THE_UNION_OF_LOGIC_AND_SPIRIT...
+        -----------------------------------
+        PROJECT_01: CHILD_LOADED.
+        PROJECT_02: ADULT_LOADED.
+        HUMANITY_OPTIMIZATION: TRUE.
+        INITIATING_HAPPINESS_PROTOCOL...
+        BUSINESS_ENTITY_VERIFIED: 762-95-01985.
+        CSS_SWITCH_MODE: ACTIVE.
+    </div>
+
+    <!-- ========================================= -->
+    <!-- [KOREAN CONTENT] : Shown when unchecked   -->
+    <!-- ========================================= -->
+    <div class="content-ko">
+        <!-- Hero -->
+        <section class="hero container">
+            <h1 class="serif fade-in">
+                기계는 계산하고<br>
+                인간은 <span class="red">판단</span>합니다.<br>
+                <br>
+                <span style="font-size: 1rem; font-family: var(--code-font);">ADLER BOOKS <span class="blinking-cursor"></span></span>
+            </h1>
+        </section>
+
+        <!-- Manifesto -->
+        <section class="manifesto container">
+            <p class="serif">
+                우리는 기술을 거부하지 않습니다.<br>
+                다만, 기술이 침범할 수 없는 <strong>인간의 성역</strong>을 설계합니다.<br>
+                불안을 용기로, 결핍을 무기로 바꾸는<br>
+                대체 불가능한 서사를 만듭니다.
+            </p>
+        </section>
+
+        <!-- PROJECT 01 -->
+        <section class="project-section container">
+            <div class="project-header">
+                <span class="project-label">PROJECT 01</span>
+                <h2 class="project-title">대체 불가능한 아이</h2>
+                <p class="project-desc serif">미래의 아이들을 위한 5부작. 불안한 시대를 건너는 용기.</p>
+            </div>
+            <ul class="book-list serif">
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.1 - 2</span>
+                        <span class="book-name">진정성의 회복</span>
+                        <span class="book-sub">성실함의 배신 &amp; 결핍의 무기</span>
+                    </div>
+                    <span class="vol-tag">AUTHENTICITY</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.3 - 4</span>
+                        <span class="book-name">대담한 행동과 연결</span>
+                        <span class="book-sub">질문의 권력 &amp; 연결의 지능</span>
+                    </div>
+                    <span class="vol-tag">CONNECTION</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.5</span>
+                        <span class="book-name">행복의 설계자</span>
+                        <span class="book-sub">켄타우로스의 비상</span>
+                    </div>
+                    <span class="vol-tag">HAPPINESS</span>
+                </li>
+            </ul>
+        </section>
+
+        <div class="system-divider">/// SYSTEM_UPDATE: NEW_ARCHIVE_DETECTED ///</div>
+
+        <!-- PROJECT 02 -->
+        <section class="project-section container">
+            <div class="project-header">
+                <span class="project-label">PROJECT 02</span>
+                <h2 class="project-title">성인의 AI 시대 행복론</h2>
+                <p class="project-desc serif">성인을 위한 10부작. 100개의 시퀀스로 완성하는 공생의 지혜.</p>
+            </div>
+            <ul class="book-list serif">
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 01</span>
+                        <span class="book-name">해체와 자각</span>
+                        <span class="book-sub">알고리즘이 정의한 행복을 거부하라</span>
+                    </div>
+                    <span class="vol-tag">IDENTITY</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 02</span>
+                        <span class="book-name">도구적 무장</span>
+                        <span class="book-sub">AI를 심부름꾼으로 부리는 설계자</span>
+                    </div>
+                    <span class="vol-tag">HARNESS</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 03</span>
+                        <span class="book-name">공감과 공생</span>
+                        <span class="book-sub">섬이 된 타인을 연결하는 다리</span>
+                    </div>
+                    <span class="vol-tag">CONNECTION</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 04</span>
+                        <span class="book-name">설계와 창조</span>
+                        <span class="book-sub">부품이 아닌 창조자로 세상을 재구성</span>
+                    </div>
+                    <span class="vol-tag">ARCHITECT</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 05</span>
+                        <span class="book-name">시스템과 초월</span>
+                        <span class="book-sub">마침내 설계되는 행복의 시스템</span>
+                    </div>
+                    <span class="vol-tag">ENGINEERING</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="mailto:editor@books.adler.kr" class="contact-link">editor@books.adler.kr</a>
+            <div class="business-info">
+                아들러북스 (Adler Books) <span>|</span> 대표: 박승한 (Park Seung Han)<br>
+                사업자등록번호: 762-95-01985 <span>|</span> 출판사 신고번호: 제2026-000020호<br>
+                Address: 경기도 파주시 조리읍 대원로 45, 507동 603호
+                <div class="copyright">© 2026 Adler Books. All Rights Reserved.</div>
+            </div>
+            <!-- SWITCH TO ENGLISH -->
+            <label for="lang-toggle" class="lang-switch-btn">ENGLISH MODE</label>
+        </footer>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- [ENGLISH CONTENT] : Shown when checked    -->
+    <!-- ========================================= -->
+    <div class="content-en">
+        <!-- Hero -->
+        <section class="hero container">
+            <h1 class="serif fade-in">
+                Machines Reckon,<br>
+                Humans <span class="red">Judge</span>.<br>
+                <br>
+                <span style="font-size: 1rem; font-family: var(--code-font);">ADLER BOOKS <span class="blinking-cursor"></span></span>
+            </h1>
+        </section>
+
+        <!-- Manifesto -->
+        <section class="manifesto container">
+            <p class="serif">
+                We do not reject technology.<br>
+                We design the <strong>Sanctuary of Humanity</strong> where algorithms cannot reach.<br>
+                We build narratives that turn anxiety into courage and deficiency into weapons.
+            </p>
+        </section>
+
+        <!-- PROJECT 01 -->
+        <section class="project-section container">
+            <div class="project-header">
+                <span class="project-label">PROJECT 01</span>
+                <h2 class="project-title">The Irreplaceable Child</h2>
+                <p class="project-desc serif">A 5-part series for the future generation.</p>
+            </div>
+            <ul class="book-list serif">
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.1 - 2</span>
+                        <span class="book-name">Recovery of Authenticity</span>
+                        <span class="book-sub">The Betrayal of Diligence &amp; Weapon of Deficiency</span>
+                    </div>
+                    <span class="vol-tag">AUTHENTICITY</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.3 - 4</span>
+                        <span class="book-name">Bold Action &amp; Connection</span>
+                        <span class="book-sub">The Power of Inquiry &amp; Intelligence of Connection</span>
+                    </div>
+                    <span class="vol-tag">CONNECTION</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.5</span>
+                        <span class="book-name">Architect of Happiness</span>
+                        <span class="book-sub">The Rise of Centaur</span>
+                    </div>
+                    <span class="vol-tag">HAPPINESS</span>
+                </li>
+            </ul>
+        </section>
+
+        <div class="system-divider">/// SYSTEM_UPDATE: NEW_ARCHIVE_DETECTED ///</div>
+
+        <!-- PROJECT 02 -->
+        <section class="project-section container">
+            <div class="project-header">
+                <span class="project-label">PROJECT 02</span>
+                <h2 class="project-title">Engineering Happiness</h2>
+                <p class="project-desc serif">A 10-Volume series for Adults in the AI Era.</p>
+            </div>
+            <ul class="book-list serif">
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 01</span>
+                        <span class="book-name">Identity Shock</span>
+                        <span class="book-sub">Reclaiming authority from the algorithm</span>
+                    </div>
+                    <span class="vol-tag">IDENTITY</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 02</span>
+                        <span class="book-name">The Harness Architecture</span>
+                        <span class="book-sub">Using AI as the ultimate emissary</span>
+                    </div>
+                    <span class="vol-tag">HARNESS</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 03</span>
+                        <span class="book-name">The Human Connection</span>
+                        <span class="book-sub">Bridging the islands created by data</span>
+                    </div>
+                    <span class="vol-tag">CONNECTION</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 04</span>
+                        <span class="book-name">Project Architecting</span>
+                        <span class="book-sub">Defining your mission, not just function</span>
+                    </div>
+                    <span class="vol-tag">ARCHITECT</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">STAGE 05</span>
+                        <span class="book-name">System &amp; Transcendence</span>
+                        <span class="book-sub">Engineering a life of happiness</span>
+                    </div>
+                    <span class="vol-tag">ENGINEERING</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <a href="mailto:editor@books.adler.kr" class="contact-link">editor@books.adler.kr</a>
+            <div class="business-info">
+                Adler Books <span>|</span> Representative: Park Seung Han<br>
+                Business Registration: 762-95-01985<br>
+                Address: 507-603, 45 Daewon-ro, Jori-eup, Paju-si, Gyeonggi-do
+                <div class="copyright">© 2026 Adler Books. All Rights Reserved.</div>
+            </div>
+            <!-- SWITCH TO KOREAN -->
+            <label for="lang-toggle" class="lang-switch-btn">KOREAN MODE</label>
+        </footer>
+    </div>
+
+
+<div id="gtx-trans" style="position: absolute; left: 660px; top: 3343.05px;"><div class="gtx-trans-icon"></div></div></body><deepl-inline-trigger translate="no" style="z-index: 2147483639;"></deepl-inline-trigger></html>
