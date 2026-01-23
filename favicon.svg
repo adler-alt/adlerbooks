@@ -1,0 +1,13 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경색이 어두운 곳에서도 잘 보이도록, 필요시 아래 rect 태그의 주석을 해제하여 배경을 추가할 수 있습니다. 
+       하지만 투명 배경이 일반적입니다. -->
+  <!-- <rect width="64" height="64" rx="10" fill="#0a0a0a"/> -->
+
+  <!-- 심볼을 중앙에 배치 (Translate 조절) -->
+  <g transform="translate(4, 7)">
+    <!-- White Pillar (Humanity) -->
+    <path d="M15 0 L15 50 L25 50 L25 0 Z" fill="#e0e0e0"/>
+    <!-- Red Beam (Innovation) -->
+    <path d="M22 0 L45 50 L55 50 L32 0 Z" fill="#ff3333"/>
+  </g>
+</svg>
