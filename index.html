@@ -1,10 +1,10 @@
-<html lang="ko"><head>
+<html lang="ko">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Adler Books: Designing Humanity in the Age of AI.">
-    <!-- SVG 패비콘 등록 (최신 표준) -->
+    <!-- SVG 패비콘 등록 -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <!-- 다크 모드 대응을 위해 Safari 등 일부 브라우저용 마스크 아이콘 추가 -->
     <link rel="mask-icon" href="favicon.svg" color="#ff3333">
     <title>Adler Books | Humanity Architecture</title>
     <style>
@@ -41,15 +41,72 @@
 
         @keyframes fadeIn { to { opacity: 1; } }
 
-        /* [The Checkbox Hack: Pure CSS Language Switch] */
-        /* 1. 실제 체크박스는 숨김 */
-        #lang-toggle { display: none; }
+        /* [Logo Animation & Positioning] - SIZE FIXED HERE */
+        .brand-logo {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            z-index: 1000;
+            display: block;
+            mix-blend-mode: exclusion; /* 배경 텍스트와 겹칠 때 반전 효과 */
+        }
 
-        /* 2. 기본 상태: 한국어 보임, 영어 숨김 */
+        .logo-svg {
+            height: 30px; /* 메인 타이틀보다 작게 설정 (약 30px) */
+            width: auto;
+            overflow: visible;
+        }
+
+        /* 1. 기둥: 바닥에서 솟아오름 */
+        .logo-pillar {
+            transform-origin: bottom;
+            transform: scaleY(0);
+            animation: constructPillar 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.5s;
+        }
+
+        /* 2. 붉은 빔: 투명도 + 위치 이동으로 결합 */
+        .logo-beam {
+            opacity: 0;
+            transform: translate(-10px, 10px);
+            animation: constructBeam 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards 0.8s;
+        }
+
+        /* 3. 텍스트: 서서히 드러남 */
+        .logo-text-adler {
+            opacity: 0;
+            transform: translateX(-5px);
+            animation: fadeInText 1s ease forwards 1.2s;
+        }
+        .logo-text-books {
+            opacity: 0;
+            animation: fadeInText 1s ease forwards 1.4s;
+        }
+
+        /* 호버 인터랙션: 붉은 빔이 빛남 */
+        .brand-logo:hover .logo-beam {
+            filter: drop-shadow(0 0 5px var(--accent-color));
+            transition: 0.3s;
+        }
+
+        @keyframes constructPillar {
+            to { transform: scaleY(1); }
+        }
+        @keyframes constructBeam {
+            to { opacity: 1; transform: translate(0, 0); }
+        }
+        @keyframes fadeInText {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (max-width: 600px) {
+            .brand-logo { top: 20px; left: 20px; }
+            .logo-svg { height: 24px; } /* 모바일에서는 더 작게 */
+        }
+
+        /* [The Checkbox Hack: Pure CSS Language Switch] */
+        #lang-toggle { display: none; }
         .content-ko { display: block; }
         .content-en { display: none; }
-
-        /* 3. 체크된 상태 (~ 형제 선택자 사용): 한국어 숨김, 영어 보임 */
         #lang-toggle:checked ~ .content-ko { display: none; }
         #lang-toggle:checked ~ .content-en { display: block; animation: fadeIn 0.5s; }
 
@@ -260,6 +317,7 @@
             </g>
         </svg>
     </a>
+    
     <!-- [HIDDEN TRIGGER] This checkbox controls the language state -->
     <input type="checkbox" id="lang-toggle">
 
@@ -529,6 +587,5 @@
             <label for="lang-toggle" class="lang-switch-btn">KOREAN MODE</label>
         </footer>
     </div>
-
-
-<div id="gtx-trans" style="position: absolute; left: 660px; top: 3343.05px;"><div class="gtx-trans-icon"></div></div></body><deepl-inline-trigger translate="no" style="z-index: 2147483639;"></deepl-inline-trigger></html>
+</body>
+</html>
