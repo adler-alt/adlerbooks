@@ -229,6 +229,58 @@
             margin-top: 5px;
         }
 
+        /* [Book Purchase Links - Expandable] */
+        .book-expandable {
+            border-bottom: 1px solid #333;
+            transition: 0.3s;
+        }
+        .book-expandable:hover {
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .book-expandable summary {
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            cursor: pointer;
+            list-style: none;
+            transition: 0.3s;
+        }
+        .book-expandable summary::-webkit-details-marker { display: none; }
+        .book-expandable summary::marker { display: none; }
+        .book-expandable:hover summary,
+        .book-expandable[open] summary {
+            padding-left: 10px;
+        }
+        .book-expandable[open] {
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .book-links {
+            display: flex;
+            gap: 15px;
+            padding: 0 0 20px 10px;
+            flex-wrap: wrap;
+            animation: fadeIn 0.3s;
+        }
+        .book-links a {
+            font-size: 0.8rem;
+            color: #888;
+            border: 1px solid #444;
+            padding: 8px 16px;
+            font-family: var(--code-font);
+            transition: 0.3s;
+        }
+        .book-links a:hover {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: rgba(255, 51, 51, 0.1);
+        }
+        @media (max-width: 600px) {
+            .book-expandable summary { flex-direction: column; gap: 10px; }
+            .book-links { flex-direction: column; gap: 10px; }
+            .book-links a { text-align: center; }
+        }
+
         @media (max-width: 600px) {
             .hero h1 { font-size: 1.6rem; }
             .book-name { font-size: 1.2rem; }
@@ -389,29 +441,52 @@
                 <p class="project-desc serif">미래의 아이들을 위한 5부작. 불안한 시대를 건너는 용기.</p>
             </div>
             <ul class="book-list serif">
+                <details class="book-expandable">
+                    <summary>
+                        <div class="book-info">
+                            <span class="vol-tag">VOL.1</span>
+                            <span class="book-name">성실함의 배신</span>
+                            <span class="book-sub">The Betrayal of Diligence</span>
+                        </div>
+                        <span class="vol-tag">진정성 I (파괴)</span>
+                    </summary>
+                    <div class="book-links">
+                        <a href="https://www.yes24.com/product/goods/176400354" target="_blank">YES24</a>
+                        <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000012527409" target="_blank">교보문고</a>
+                        <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=385139814" target="_blank">알라딘</a>
+                    </div>
+                </details>
                 <li class="book-item">
                     <div class="book-info">
-                        <span class="vol-tag">VOL.1 - 2</span>
-                        <span class="book-name">진정성의 회복</span>
-                        <span class="book-sub">성실함의 배신 &amp; 결핍의 무기</span>
+                        <span class="vol-tag">VOL.2</span>
+                        <span class="book-name">결핍의 무기</span>
+                        <span class="book-sub">The Weapon of Deficiency</span>
                     </div>
-                    <span class="vol-tag">AUTHENTICITY</span>
+                    <span class="vol-tag">진정성 II (발견)</span>
                 </li>
                 <li class="book-item">
                     <div class="book-info">
-                        <span class="vol-tag">VOL.3 - 4</span>
-                        <span class="book-name">대담한 행동과 연결</span>
-                        <span class="book-sub">질문의 권력 &amp; 연결의 지능</span>
+                        <span class="vol-tag">VOL.3</span>
+                        <span class="book-name">질문의 권력</span>
+                        <span class="book-sub">The Power of Inquiry</span>
                     </div>
-                    <span class="vol-tag">CONNECTION</span>
+                    <span class="vol-tag">대담함 (행동)</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.4</span>
+                        <span class="book-name">연결의 지능</span>
+                        <span class="book-sub">The Intelligence of Connection</span>
+                    </div>
+                    <span class="vol-tag">연결 (확장)</span>
                 </li>
                 <li class="book-item">
                     <div class="book-info">
                         <span class="vol-tag">VOL.5</span>
                         <span class="book-name">행복의 설계자</span>
-                        <span class="book-sub">켄타우로스의 비상</span>
+                        <span class="book-sub">Architect of Happiness</span>
                     </div>
-                    <span class="vol-tag">HAPPINESS</span>
+                    <span class="vol-tag">행복 (완성)</span>
                 </li>
             </ul>
         </section>
@@ -516,17 +591,33 @@
             <ul class="book-list serif">
                 <li class="book-item">
                     <div class="book-info">
-                        <span class="vol-tag">VOL.1 - 2</span>
-                        <span class="book-name">Recovery of Authenticity</span>
-                        <span class="book-sub">The Betrayal of Diligence &amp; Weapon of Deficiency</span>
+                        <span class="vol-tag">VOL.1</span>
+                        <span class="book-name">The Betrayal of Diligence</span>
+                        <span class="book-sub">성실함의 배신</span>
                     </div>
-                    <span class="vol-tag">AUTHENTICITY</span>
+                    <span class="vol-tag">AUTHENTICITY I</span>
                 </li>
                 <li class="book-item">
                     <div class="book-info">
-                        <span class="vol-tag">VOL.3 - 4</span>
-                        <span class="book-name">Bold Action &amp; Connection</span>
-                        <span class="book-sub">The Power of Inquiry &amp; Intelligence of Connection</span>
+                        <span class="vol-tag">VOL.2</span>
+                        <span class="book-name">The Weapon of Deficiency</span>
+                        <span class="book-sub">결핍의 무기</span>
+                    </div>
+                    <span class="vol-tag">AUTHENTICITY II</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.3</span>
+                        <span class="book-name">The Power of Inquiry</span>
+                        <span class="book-sub">질문의 권력</span>
+                    </div>
+                    <span class="vol-tag">BOLDNESS</span>
+                </li>
+                <li class="book-item">
+                    <div class="book-info">
+                        <span class="vol-tag">VOL.4</span>
+                        <span class="book-name">The Intelligence of Connection</span>
+                        <span class="book-sub">연결의 지능</span>
                     </div>
                     <span class="vol-tag">CONNECTION</span>
                 </li>
@@ -534,7 +625,7 @@
                     <div class="book-info">
                         <span class="vol-tag">VOL.5</span>
                         <span class="book-name">Architect of Happiness</span>
-                        <span class="book-sub">The Rise of Centaur</span>
+                        <span class="book-sub">행복의 설계자</span>
                     </div>
                     <span class="vol-tag">HAPPINESS</span>
                 </li>
